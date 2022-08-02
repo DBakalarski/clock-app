@@ -1,0 +1,45 @@
+.timeContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+}
+
+.time {
+  font-weight: 700;
+  font-size: 100px;
+  letter-spacing: -2.5px;
+  height: 120px;
+}
+
+.button {
+  margin-top: 48px;
+  width: 115px;
+  color: #000;
+  padding: 3px 3px 3px 17px;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: none;
+  border: 0;
+  outline: 0;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button span {
+  opacity: 0.5;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 3.75px;
+}
+
+.arrow {
+  width: 32px;
+  height: 32px;
+  background: #303030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}

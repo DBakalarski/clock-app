@@ -1,0 +1,10 @@
+.greeting {
+  font-size: 15px;
+  letter-spacing: 3px;
+  display: flex;
+  align-items: center;
+}
+
+.greeting img {
+  padding-right: 8px;
+}
