@@ -50,7 +50,7 @@ const TimeContainer: React.FC<{
       setCountry(resIp.data.country_code);
       setCity(resIp.data.city);
 
-      if (hours > 18 && hours < 5) {
+      if (hours > 18 || hours < 5) {
         ctxTheme.setThemeDark();
       }
 

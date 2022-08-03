@@ -14,13 +14,13 @@ const GreetingText: React.FC<{ hours: number }> = (props) => {
       return 'Good afternoon';
     }
     if (hours >= 18 || hours <= 5) {
-      return 'Good afternoon';
+      return 'Good night';
     }
 
     return '';
   };
 
-  const iconSrc = hours >= 18 && hours < 5 ? iconMoon : iconSun;
+  const iconSrc = hours >= 18 || hours < 5 ? iconMoon : iconSun;
 
   return (
     <div className={classes.greeting}>
