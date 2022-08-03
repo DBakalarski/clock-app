@@ -1,0 +1,39 @@
+.additional {
+  height: 0;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(5px);
+  transition: 0.5s;
+}
+
+.isVisible {
+  height: 230px;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  padding: 46px 28px;
+  color: #303030;
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 10px;
+}
+
+.value {
+  font-weight: 700;
+  font-size: 20px;
+}

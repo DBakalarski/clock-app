@@ -1,0 +1,25 @@
+.quote {
+  padding: 32px 60px 0 26px;
+  position: relative;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 22px;
+}
+
+.author {
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.refresh {
+  position: absolute;
+  right: 27px;
+  top: 32px;
+  background: none;
+  box-shadow: none;
+  border: none;
+}

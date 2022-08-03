@@ -9,7 +9,13 @@ const Hero = () => {
 
   const srcImage =
     ctx.theme === EContextTheme.Light ? bgImgMobileDay : bgImgMobileNight;
-  return <img src={srcImage} alt='' className={classes.img} />;
+
+  return (
+    <>
+      <img src={srcImage} alt='' className={classes.img} />
+      <div className={classes.background}></div>
+    </>
+  );
 };
 
 export default Hero;
