@@ -37,3 +37,45 @@
   font-weight: 700;
   font-size: 20px;
 }
+
+@media (min-width: 768px) {
+  .isVisible {
+    height: 416px;
+  }
+
+  .items {
+    flex-direction: row;
+    padding: 119px 64px 71px 64px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .item {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin-bottom: 48px;
+  }
+
+  .label {
+    letter-spacing: 2.6px;
+    font-size: 13px;
+  }
+
+  .value {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .label {
+    letter-spacing: 3px;
+    font-size: 15px;
+  }
+
+  .value {
+    font-size: 56px;
+  }
+}

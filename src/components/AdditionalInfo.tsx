@@ -1,7 +1,6 @@
 import { Nullable } from '../helpers/types';
 import classes from './AdditionalInfo.module.css';
 import { IAdditionalData } from './TimeContainer';
-import { useEffect } from 'react';
 
 const AdditionalInfo: React.FC<{
   data: Nullable<IAdditionalData>;
@@ -10,11 +9,6 @@ const AdditionalInfo: React.FC<{
   const additioanClass = !props.isVisible
     ? classes.additional
     : `${classes.additional} ${classes.isVisible}`;
-
-  useEffect(() => {
-    if (props.isVisible) {
-    }
-  }, []);
 
   return (
     <div className={additioanClass}>

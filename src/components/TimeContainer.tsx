@@ -43,7 +43,7 @@ const TimeContainer = () => {
     setCountry(resIp.data.country_code);
     setCity(resIp.data.city);
 
-    if (hours > 18 && hours < 6) {
+    if (hours > 18 && hours < 5) {
       ctxTheme.setThemeDark();
     }
 

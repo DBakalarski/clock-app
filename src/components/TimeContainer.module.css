@@ -48,3 +48,54 @@
   border-radius: 50%;
   overflow: hidden;
 }
+
+@media (min-width: 768px) {
+  .timeContainer {
+    padding: 0 64px;
+  }
+  .time {
+    font-size: 175px;
+    letter-spacing: -4px;
+    height: 175px;
+  }
+
+  .place {
+    font-size: 18px;
+    padding-top: 15px;
+  }
+
+  .button {
+    margin-top: 95px;
+    margin-bottom: 77px;
+    width: 146px;
+  }
+
+  .button span {
+    font-size: 16px;
+    letter-spacing: 5px;
+  }
+  .arrow {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeContainer {
+    min-height: 288px;
+    padding: 0 165px 100px 165px;
+    position: relative;
+  }
+  .time {
+    font-size: 200px;
+    letter-spacing: -5px;
+    height: 200px;
+  }
+
+  .button {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+}
