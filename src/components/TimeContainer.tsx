@@ -21,14 +21,18 @@ export interface IAdditionalData {
   weekNumber: number;
 }
 
-const TimeContainer = () => {
+const TimeContainer: React.FC<{
+  isAddDataVisible: boolean;
+  handleAdditionalData: () => void;
+}> = (props) => {
   const [time, setTime] = useState<Nullable<ITimeState>>(null);
   const [country, setCountry] = useState<string>('');
   const [city, setCity] = useState<string>('');
   const [additionalData, setAdditionalData] =
     useState<Nullable<IAdditionalData>>(null);
-  const [isAddDataVisible, setIsAddDataVisible] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { isAddDataVisible } = props;
 
   const ctxTheme = useContext(ThemeContext);
 
@@ -61,11 +65,7 @@ const TimeContainer = () => {
     } finally {
       setIsLoading(false);
     }
-  }, [ctxTheme]);
-
-  const handleAdditionalData = () => {
-    setIsAddDataVisible((prev) => !prev);
-  };
+  }, []);
 
   const formatMinutes =
     time?.minutes! < 10 ? `0${time?.minutes}` : time?.minutes;
@@ -94,7 +94,7 @@ const TimeContainer = () => {
           </>
         )}
 
-        <button onClick={handleAdditionalData} className={classes.button}>
+        <button onClick={props.handleAdditionalData} className={classes.button}>
           <span>{textButton}</span>
           <span className={classes.arrow}>
             <img src={displayArrow} alt='' />

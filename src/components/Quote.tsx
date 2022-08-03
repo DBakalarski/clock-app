@@ -10,10 +10,9 @@ export interface IQuoteState {
   author: string;
 }
 
-const Quote = () => {
+const Quote: React.FC<{ isQuoteVisible: boolean }> = (props) => {
   const [quote, setQuote] = useState<Nullable<IQuoteState>>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const getQuote = async () => {
     try {
       setIsLoading(true);
@@ -33,22 +32,24 @@ const Quote = () => {
 
   useEffect(() => {
     getQuote();
-    console.log('quote');
   }, []);
   return (
-    <div className={classes.quote}>
-      {isLoading && <Loader />}
-      {!isLoading && (
-        <>
-          <button onClick={getQuote} className={classes.refresh}>
-            <img src={iconRefresh} alt='refresh' />
-          </button>
-
-          <div className={classes.text}>{quote?.text}</div>
-          <div className={classes.author}>{quote?.author}</div>
-        </>
+    <>
+      {props.isQuoteVisible && (
+        <div className={classes.quote}>
+          {isLoading && <Loader />}
+          {!isLoading && (
+            <>
+              <button onClick={getQuote} className={classes.refresh}>
+                <img src={iconRefresh} alt='refresh' />
+              </button>
+              <div className={classes.text}>{quote?.text}</div>
+              <div className={classes.author}>{quote?.author}</div>
+            </>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
 

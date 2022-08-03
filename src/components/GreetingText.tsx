@@ -13,7 +13,7 @@ const GreetingText: React.FC<{ hours: number }> = (props) => {
     if (hours >= 12 && hours < 18) {
       return 'Good afternoon';
     }
-    if (hours >= 18 && hours <= 5) {
+    if (hours >= 18 || hours <= 5) {
       return 'Good afternoon';
     }
 
