@@ -7,6 +7,7 @@ import { Nullable } from '../helpers/types';
 import arrowUp from '../assets/desktop/icon-arrow-up.svg';
 import arrowDown from '../assets/desktop/icon-arrow-down.svg';
 import AdditionalInfo from './AdditionalInfo';
+import Loader from './Loader';
 
 export interface ITimeState {
   hours: number;
@@ -27,32 +28,39 @@ const TimeContainer = () => {
   const [additionalData, setAdditionalData] =
     useState<Nullable<IAdditionalData>>(null);
   const [isAddDataVisible, setIsAddDataVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const ctxTheme = useContext(ThemeContext);
 
   const getTime = useCallback(async () => {
-    const resIp = await axios.get('https://geolocation-db.com/json/');
-    const resTime = await axios.get(
-      `http://worldtimeapi.org/api/ip/${resIp.data.IPv4}`
-    );
+    try {
+      setIsLoading(true);
+      const resIp = await axios.get('https://geolocation-db.com/json/');
+      const resTime = await axios.get(
+        `https://worldtimeapi.org/api/ip/${resIp.data.IPv4}`
+      );
+      const hours = new Date(resTime.data.datetime).getHours();
+      const minutes = new Date(resTime.data.datetime).getMinutes();
 
-    const hours = new Date(resTime.data.datetime).getHours();
-    const minutes = new Date(resTime.data.datetime).getMinutes();
+      setTime({ hours, minutes: minutes });
+      setCountry(resIp.data.country_code);
+      setCity(resIp.data.city);
 
-    setTime({ hours, minutes: minutes });
-    setCountry(resIp.data.country_code);
-    setCity(resIp.data.city);
+      if (hours > 18 && hours < 5) {
+        ctxTheme.setThemeDark();
+      }
 
-    if (hours > 18 && hours < 5) {
-      ctxTheme.setThemeDark();
+      setAdditionalData({
+        timezone: resTime.data.timezone,
+        dayOfYear: resTime.data.day_of_year,
+        dayOfWeek: resTime.data.day_of_week,
+        weekNumber: resTime.data.week_number,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
     }
-
-    setAdditionalData({
-      timezone: resTime.data.timezone,
-      dayOfYear: resTime.data.day_of_year,
-      dayOfWeek: resTime.data.day_of_week,
-      weekNumber: resTime.data.week_number,
-    });
   }, [ctxTheme]);
 
   const handleAdditionalData = () => {
@@ -74,16 +82,18 @@ const TimeContainer = () => {
     <>
       <div className={classes.timeContainer}>
         <GreetingText hours={time?.hours!} />
-        <div className={classes.time}>
-          {Boolean(time) && (
-            <>
+        {isLoading && <Loader />}
+        {!isLoading && Boolean(time) && (
+          <>
+            <div className={classes.time}>
               {time?.hours}:{formatMinutes}
-            </>
-          )}
-        </div>
-        <div className={classes.place}>
-          In {city}, {country}
-        </div>
+            </div>
+            <div className={classes.place}>
+              In {city}, {country}
+            </div>
+          </>
+        )}
+
         <button onClick={handleAdditionalData} className={classes.button}>
           <span>{textButton}</span>
           <span className={classes.arrow}>

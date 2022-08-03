@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Nullable } from '../helpers/types';
 import classes from './Quote.module.css';
 import iconRefresh from '../assets/desktop/icon-refresh.svg';
+import Loader from './Loader';
 
 export interface IQuoteState {
   text: string;
@@ -11,16 +12,23 @@ export interface IQuoteState {
 
 const Quote = () => {
   const [quote, setQuote] = useState<Nullable<IQuoteState>>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getQuote = async () => {
-    const res = await axios.get(
-      'https://programming-quotes-api.herokuapp.com/Quotes/random'
-    );
-    setQuote({
-      text: res.data.en,
-      author: res.data.author,
-    });
-    console.log(res.data);
+    try {
+      setIsLoading(true);
+      const res = await axios.get(
+        'https://programming-quotes-api.herokuapp.com/Quotes/random'
+      );
+      setQuote({
+        text: res.data.en,
+        author: res.data.author,
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -29,12 +37,17 @@ const Quote = () => {
   }, []);
   return (
     <div className={classes.quote}>
-      <button onClick={getQuote} className={classes.refresh}>
-        <img src={iconRefresh} alt='refresh' />
-      </button>
+      {isLoading && <Loader />}
+      {!isLoading && (
+        <>
+          <button onClick={getQuote} className={classes.refresh}>
+            <img src={iconRefresh} alt='refresh' />
+          </button>
 
-      <div className={classes.text}>{quote?.text}</div>
-      <div className={classes.author}>{quote?.author}</div>
+          <div className={classes.text}>{quote?.text}</div>
+          <div className={classes.author}>{quote?.author}</div>
+        </>
+      )}
     </div>
   );
 };
