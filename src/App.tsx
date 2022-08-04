@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react';
 import Quote from './components/Quote';
 import TimeContainer from './components/TimeContainer';
-import classes from './App.module.css';
 import ThemeProvider from './store/ThemeProvider';
 import Hero from './components/Hero';
+import './App.css';
 
 function App() {
   const [isAddDataVisible, setIsAddDataVisible] = useState<boolean>(false);
@@ -14,9 +14,9 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className={classes.app}>
+      <div className='app'>
         <Hero />
-        <div className={classes.container}>
+        <div className='container'>
           <Quote isQuoteVisible={!isAddDataVisible} />
           <TimeContainer
             handleAdditionalData={handleAdditionalData}

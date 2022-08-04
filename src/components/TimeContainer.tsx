@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
-import classes from './TimeContainer.module.css';
 import axios from 'axios';
 import { ThemeContext } from '../store/ThemeProvider';
 import GreetingText from './GreetingText';
@@ -8,6 +7,102 @@ import arrowUp from '../assets/desktop/icon-arrow-up.svg';
 import arrowDown from '../assets/desktop/icon-arrow-down.svg';
 import AdditionalInfo from './AdditionalInfo';
 import Loader from './Loader';
+import styled from 'styled-components';
+
+const TimeContainerStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 200px;
+  padding: 0 26px 80px 26px;
+  flex-grow: 1;
+  justify-content: flex-end;
+  @media (min-width: 768px) {
+    padding: 0 64px;
+  }
+  @media (min-width: 1024px) {
+    min-height: 288px;
+    padding: 0 165px 100px 165px;
+    position: relative;
+  }
+`;
+
+const Time = styled.div`
+  font-weight: 700;
+  font-size: 100px;
+  letter-spacing: -2.5px;
+  height: 120px;
+  @media (min-width: 768px) {
+    font-size: 175px;
+    letter-spacing: -4px;
+    height: 175px;
+  }
+  @media (min-width: 1024px) {
+    font-size: 200px;
+    letter-spacing: -5px;
+    height: 200px;
+  }
+`;
+
+const Button = styled.div`
+  margin-top: 48px;
+  margin-bottom: 0;
+  width: 115px;
+  color: #000;
+  padding: 3px 3px 3px 17px;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: none;
+  border: 0;
+  outline: 0;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  span {
+    opacity: 0.5;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 3.75px;
+  }
+  @media (min-width: 768px) {
+    margin-top: 95px;
+    margin-bottom: 77px;
+    width: 146px;
+    span {
+      font-size: 16px;
+      letter-spacing: 5px;
+    }
+  }
+  @media (min-width: 1024px) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+  }
+`;
+
+const Arrow = styled.span`
+  width: 32px;
+  height: 32px;
+  background: #303030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  @media (min-width: 768px) {
+    width: 40px;
+    height: 40px;
+  }
+`;
+
+const Place = styled.span`
+  @media (min-width: 768px) {
+    font-size: 18px;
+    padding-top: 15px;
+  }
+`;
 
 export interface ITimeState {
   hours: number;
@@ -80,27 +175,27 @@ const TimeContainer: React.FC<{
 
   return (
     <>
-      <div className={classes.timeContainer}>
+      <TimeContainerStyled>
         <GreetingText hours={time?.hours!} />
         {isLoading && <Loader />}
         {!isLoading && Boolean(time) && (
           <>
-            <div className={classes.time}>
+            <Time>
               {time?.hours}:{formatMinutes}
-            </div>
-            <div className={classes.place}>
+            </Time>
+            <Place>
               In {city}, {country}
-            </div>
+            </Place>
           </>
         )}
 
-        <button onClick={props.handleAdditionalData} className={classes.button}>
+        <Button onClick={props.handleAdditionalData}>
           <span>{textButton}</span>
-          <span className={classes.arrow}>
+          <Arrow>
             <img src={displayArrow} alt='' />
-          </span>
-        </button>
-      </div>
+          </Arrow>
+        </Button>
+      </TimeContainerStyled>
       <AdditionalInfo isVisible={isAddDataVisible} data={additionalData} />
     </>
   );
